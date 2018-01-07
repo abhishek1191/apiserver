@@ -1,2 +1,8 @@
 node_modules/
 .idea/
+
+.idea/workspace.xml
+public/images/
+public/javascripts/
+public/text.html
+yarn-error.log

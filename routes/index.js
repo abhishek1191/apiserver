@@ -3,16 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Cybertron' });
+  res.render('index', { title: 'Thumbs up' });
 });
 
-router.get('/home', function(req, res, next) {
-  res.render('index', { title: 'Home' });
-});
-
-
-router.get('/herokuTest', function(req, res, next) {
-  res.render('index', { title: 'Cybertron' });
-});
 
 module.exports = router;

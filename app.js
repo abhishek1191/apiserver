@@ -10,8 +10,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var index = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
-
 var app = express();
+
+var findByName = require('./services/database');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,13 +34,19 @@ app.use('/users', users);
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        if (username === 'user' && password === 'test1234') {
-            return done(null, true, {message : 'Welcome'});
-        }
-        return done(null, false, {message : 'Incorrect Credentials'});
+        findByName(username, validateUser.bind(this,done));
     }
 ));
 
+function validateUser(done, docs, a, b) {
+    if(docs && docs.length > 0) {
+       let user = docs[0];
+        if (user && user.name === 'Coffee Taster') {
+            return done(null, true, {message : 'Welcome ' + user.name});
+        }
+    }
+    return done(null, false, {message : 'Incorrect Credentials'});
+}
 
 
 app.post('/login',function(req,res){
